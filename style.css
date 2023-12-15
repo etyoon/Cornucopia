@@ -15,14 +15,14 @@ body {
     float: left;
 }
 
-.nav_bar ul {
+.right ul {
     float: right;
     padding: 0px;
     margin: 0px;
     vertical-align: top;
 }
 
-.nav_bar li{
+.right li{
     list-style-type: none;
     padding: 0px;
     height: 24px;
@@ -31,10 +31,10 @@ body {
     display: inline;
 }
 
-.nav_bar li a {
+.right li a {
     color: black;
     font-size: 16px;
-    font: "Roboto Condesnsed", sans-serif;
+    font: "Roboto Condensed", sans-serif;
     text-decoration: none;
     line-height: 70px;
     padding: 5px 15px;
