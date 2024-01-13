@@ -25,7 +25,7 @@ const Home = () => {
             <div className="ingredients">
                 {ingredients && ingredients.map((ingredient) => (
                     <IngredientDetails key={ingredient._id} ingredient = {ingredient} />
-                ))}
+                ))}                
             </div>
             <IngredientForm />
         </div>

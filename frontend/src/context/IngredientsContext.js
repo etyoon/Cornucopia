@@ -17,6 +17,16 @@ export const ingredientsReducer = (state, action) => {
             return {
                 ingredients: state.ingredients.filter((i) => i._id !== action.payload._id)
             }
+        case 'UPDATE_INGREDIENTS':
+            console.log(action.payload)
+            return {
+                ingredients: state.ingredients.map(obj => {
+                    if (obj._id === action.payload.ingredient._id) {
+                       obj.quantity = action.payload.ingredient.quantity
+                    }
+                    return obj
+                })
+            }
         default:
             return state
     }

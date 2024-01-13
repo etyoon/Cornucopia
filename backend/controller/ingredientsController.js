@@ -80,7 +80,7 @@ const updateIngredient = async (req, res) => {
 
     const ingredient = await Ingredient.findOneAndUpdate({_id:id}, {
         ...req.body
-    })
+    }, {new: true})
 
     if (!ingredient) {
         return res.status(404).json({error:'No such ingredient'})
