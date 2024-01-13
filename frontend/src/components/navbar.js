@@ -5,6 +5,16 @@ const Navbar = () => {
         <div className = "nav_bar">
         <div id = "nav_container">
             <img src = {require("../static/logo.png")} alt = "LOGO"/>
+            <div class = "left">
+                <ul>
+                    <li>
+                        <Link to="/login">Login</Link>
+                    </li>
+                    <li>
+                        <Link to='/signup'>Signup</Link>
+                    </li>
+                </ul>
+            </div>
             <div class = "right">
                 <ul>
                     <li><Link to='/'>Fridge</Link></li>

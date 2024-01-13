@@ -41,11 +41,13 @@ const IngredientForm = () => {
         <form className = 'create' onSubmit={handleSubmit}>
             <h3> Add a New Ingredient </h3>
 
-            <label>Ingredient Title</label>
+            <label>Ingredient Title: </label>
             <input type='text' onChange={(e) => setTitle(e.target.value)} value = {title} className={emptyfields.includes('title') ? 'error': ''}></input>
-            <label>Quantity (g) </label>
+            <br></br>
+            <label>Quantity (g): </label>
             <input type='number' onChange={(e) => setQuantity(e.target.value)} value = {quantity} className={emptyfields.includes('quantity') ? 'error': ''}></input>
-            <label>Expiration (YYYY-MM-DD)</label>
+            <br></br>
+            <label>Expiration (YYYY-MM-DD): </label>
             <input type='text' onChange={(e) => setExpiration(e.target.value)} value = {expiration} className={emptyfields.includes('expiration') ? 'error': ''}></input>
             <button>Add Ingredient</button>
             {error && <div className="error">{error}</div>}
