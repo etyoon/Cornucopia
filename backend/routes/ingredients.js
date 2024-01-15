@@ -6,9 +6,13 @@ const {
     getIngredients,
     deleteIngredient
 } = require('../controller/ingredientsController')
+const requireAuth = require('../middleware/requireAuth')
 
 const router = express.Router()
-const Ingredient = require('../models/ingredientsModels')
+
+//require autho for all ingredients routes
+router.use(requireAuth)
+
 
 //get all ingredient
 router.get('/', getIngredients)

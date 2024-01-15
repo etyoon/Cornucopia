@@ -2,7 +2,9 @@ const Ingredient = require('../models/ingredientsModels')
 const mongoose = require('mongoose')
 
 const getIngredients = async (req, res) => {
-    const ingredient = await Ingredient.find({}).sort({createdAt: -1})
+    const user_id = req.user._id
+    
+    const ingredient = await Ingredient.find({user_id}).sort({createdAt: -1})
 
     res.status(200).json(ingredient)
 }
@@ -46,7 +48,8 @@ const addIngredient = async (req, res) => {
 
     //add doc to db
     try {
-        const ingredient = await Ingredient.create({title, quantity, expiration})
+        const user_id = req.user._id
+        const ingredient = await Ingredient.create({title, quantity, expiration, user_id})
         res.status(200).json(ingredient)
     } catch(error) {
         res.status(400).json({error: error.message})

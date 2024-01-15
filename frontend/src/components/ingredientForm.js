@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { useIngredientsContext } from "../hooks/useIngredientsContext";
-
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const IngredientForm = () => {
     const {dispatch} = useIngredientsContext()
+    const {user} = useAuthContext()
+
     const [title, setTitle] = useState("")
     const [quantity, setQuantity] = useState("")
     const [expiration, setExpiration] = useState("")
@@ -12,12 +14,19 @@ const IngredientForm = () => {
     
     const handleSubmit = async(e) => {
         e.preventDefault()
+
+        if (!user) {
+            setError('You must be logged in')
+            return
+        }
+
         const ingredient = {title, quantity, expiration}
         const response = await fetch('/api/ingredient', {
             method: 'POST',
             body: JSON.stringify(ingredient),
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user.token}`
             }
         })
         const json = await response.json()
@@ -49,7 +58,7 @@ const IngredientForm = () => {
             <br></br>
             <label>Expiration (YYYY-MM-DD): </label>
             <input type='text' onChange={(e) => setExpiration(e.target.value)} value = {expiration} className={emptyfields.includes('expiration') ? 'error': ''}></input>
-            <button>Add Ingredient</button>
+            <button className="button1">Add Ingredient</button>
             {error && <div className="error">{error}</div>}
         </form>
     )

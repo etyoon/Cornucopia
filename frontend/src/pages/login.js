@@ -1,18 +1,20 @@
 import {useState} from 'react'
+import { useLogin } from '../hooks/useLogin'
 
 const Login = () => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const {login, error, isLoading} = useLogin()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        console.log(email, password)
+        await login(email, password)
     }
 
     return (
         <div>
-            <div class = 'signin_container'>
+            <div className = 'signin_container'>
                 <h1>Cornucopia</h1>
                 <p>Welcome back!</p>
                 <h2>Log In</h2>
@@ -28,7 +30,8 @@ const Login = () => {
                     <input type = 'password' class = 'email' placholder = 'Enter Password'
                     onChange = {(e)=> setPassword(e.target.value)}
                     value = {password}></input>
-                    <button className = 'login_button'>Login</button>
+                    <button disabled = {isLoading} className = 'login_button'>Login</button>
+                    {error && <div className = "error">{error}</div>}
                 </form>
             </div>
             <img className = 'login_image' src = {require('../static/image.png')}></img>

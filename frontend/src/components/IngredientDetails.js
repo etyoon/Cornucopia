@@ -1,19 +1,26 @@
 import { useIngredientsContext } from "../hooks/useIngredientsContext"
 import { useState } from "react";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 //date fns
 // import formatDistanceToNow from "date-fns/formatDistanceToNow"
 
 const IngredientDetails = ({ ingredient }) => {
-
+    const {user} = useAuthContext()
     const [error, setError] = useState(null)
 
 
     const { dispatch } = useIngredientsContext()
 
     const deleteClick = async () => {
+        if (!user) {
+            return
+        }
         const response = await fetch('/api/ingredient/' + ingredient._id, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${user.token}`
+            }
         })
         const json = await response.json()
 
@@ -23,6 +30,9 @@ const IngredientDetails = ({ ingredient }) => {
     }
 
     const updateClick = async() => {
+        if (!user) {
+            return
+        }
         const quantityUsed = Number(prompt("Enter amount used: "))
 
         const new_quantity = ingredient.quantity - quantityUsed
@@ -30,7 +40,8 @@ const IngredientDetails = ({ ingredient }) => {
             const response = await fetch('/api/ingredient/' + ingredient._id, {
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type' : 'application/json'
+                    'Content-Type' : 'application/json',
+                    'Authorization': `Bearer ${user.token}`
                 },
                 method: "PATCH",
                 body: JSON.stringify({quantity: ingredient.quantity - quantityUsed})
